@@ -56,6 +56,8 @@ wss.on("connection", (ws) => {
                 break;
             }
             case COMMANDS.DRAW_RECTANGLE: {
+                console.log(message.toString());
+
                 drawRectangle(+pixels[0], +pixels[1]);
                 ws.send(command);
                 break;
