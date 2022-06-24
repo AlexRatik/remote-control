@@ -25,12 +25,10 @@ wss.on("connection", async function (ws: IWebSocket, req) {
     duplex.on("readable", readableHandler(duplex));
     ws.on("pong", heartbeat);
     ws.on("close", () => {
+        console.log("duplex off");
         duplex.destroy();
     });
 });
 wss.on("close", () => {
     clearInterval(interval);
-});
-process.on("SIGINT", () => {
-    wss.close();
 });
