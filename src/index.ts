@@ -15,7 +15,7 @@ export const wss = new WebSocketServer({ port: +process.env.PORT || 8080 });
 wss.on("connection", async function (ws: IWebSocket, req) {
     const ip = req.socket.remoteAddress;
     const { port } = wss.address() as AddressInfo;
-    console.log(`Connection enabled! IP:${ip} PORT:${port}`);
+    console.log(`Connection enabled! IP:${ip} PORT:${port} URL:${req.url}`);
     ws.isAlive = true;
 
     const duplex = createWebSocketStream(ws, {
@@ -25,7 +25,6 @@ wss.on("connection", async function (ws: IWebSocket, req) {
     duplex.on("readable", readableHandler(duplex));
     ws.on("pong", heartbeat);
     ws.on("close", () => {
-        console.log("duplex off");
         duplex.destroy();
     });
 });
