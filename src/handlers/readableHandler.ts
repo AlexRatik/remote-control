@@ -12,6 +12,8 @@ export const readableHandler = (duplex: Duplex) => {
             const [command, ...pixels] = data.split(" ");
             const args = pixels.map((num) => Number(num));
             const result = await controller(command, args);
+            console.log(result);
+
             duplex.write(result);
         } catch (error) {
             if (error instanceof Error) {
